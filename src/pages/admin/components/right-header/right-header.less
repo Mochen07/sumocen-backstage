@@ -1,0 +1,57 @@
+.adminHeader{
+  background: #fff;
+  padding: 0;
+  position: relative;
+
+  .trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+    position: absolute;
+  }
+
+  .trigger:hover {
+    color: #1890ff;
+  }
+
+  .admin-header-top{
+    line-height: 32px;
+    margin: 0 30px 0 70px;
+    border-bottom: 1px solid #1890ff;
+    text-align: right;
+    .button{
+      height: 23px;
+      margin-left: 10px;
+    }
+  }
+  .admin-header-bottom{
+    line-height: 32px;
+    margin: 0 30px 0 70px;
+    display: flex;
+    .left{
+      flex: 3;
+      position: relative;
+      display: flex;
+      align-items: center;
+      &::after{
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: 31px;
+        left: 2%;
+        border: 8px solid transparent;
+        border-top-color: #fff;
+      }
+    }
+    .right{
+      flex: 7;
+      text-align: right;
+      img{
+        height: 17px;
+        margin: 0 10px;
+      }
+    }
+  }
+}
