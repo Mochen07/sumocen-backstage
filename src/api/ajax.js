@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {message} from "antd"
 
-const BASEURL = 'http://localhost:3000/'
+const BASEURL = 'http://localhost:7676/'
 
 /*
 * 功能：
