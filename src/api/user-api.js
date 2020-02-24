@@ -4,9 +4,9 @@ import {saveObj, getObj, removeObj} from "./../tools/cache-tool"
 // 登陆持久化公共变量
 const USERKEY = "USERKEY"
 
-export const checkLogin = (account, password) => {
-    return ajax("api/users/login",{
-        account,
+export const checkLogin = (nickname, password) => {
+    return ajax("api/back/user/login",{
+        nickname,
         password
     },"post")
 }
@@ -30,5 +30,5 @@ export const removeUser = () => {
 export const isLogin = () => {
     let user = getObj(USERKEY)
 
-    return !!user.id
+    return !!user.token
 }
