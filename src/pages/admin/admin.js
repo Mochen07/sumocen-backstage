@@ -7,6 +7,7 @@ import './admin.less'
 import LeftNav from './components/left-nav/left-nav'
 import RightHeader from './components/right-header/right-header'
 import Home from '../home/home'
+import User from '../user/user'
 import NotFound from '../not-found/not-found'
 
 const { Content, Footer } = Layout;
@@ -46,7 +47,7 @@ export default class Admin extends Component {
                         <Switch>
                             <Redirect from="/" exact to="/home" />
                             <Route path="/home" component={Home} />
-                            {/*<Route path="/user" component={User} />*/}
+                            <Route path="/user" component={User} />
                             {/*<Route path="/category" component={Category} />*/}
                             {/*<Route path="/question" component={Question} />*/}
                             {/*<Route path="/charts" component={Charts} />*/}
