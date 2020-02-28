@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { Upload, Icon, Modal, message } from 'antd';
+import {BaseUrlUpload} from './../../config/base-url'
 
 function getBase64(file) {
     return new Promise((resolve, reject) => {
@@ -94,7 +95,7 @@ export default class UploadHeader extends Component{
             <div className="clearfix">
                 <Upload
                     accept="image/*"
-                    action="api/uploadImg"
+                    action={BaseUrlUpload + 'api/back/upload'}
                     listType="picture-card"
                     fileList={fileList}
                     onPreview={this.handlePreview}
