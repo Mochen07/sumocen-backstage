@@ -5,14 +5,14 @@ import {saveObj, getObj, removeObj} from "./../tools/cache-tool"
 const USERKEY = "USERKEY"
 
 export const checkLogin = (nickname, password) => {
-    return ajax("api/back/user/login",{
+    return ajax("api/user/login",{
         nickname,
         password
     },"post")
 }
 
 export const updateUser = (data) => {
-    return ajax("api/users/update", data, "post")
+    return ajax("api/back/user/update", data, "post")
 }
 
 export const saveUser = (obj) => {

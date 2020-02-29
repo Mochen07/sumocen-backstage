@@ -36,7 +36,7 @@ export default class UploadHeader extends Component{
                         uid: '-1',
                         name: this.props.headerImg,
                         status: 'done',
-                        url: "http://localhost:5000/userImg/" + this.props.headerImg,
+                        url: this.props.headerImg,
                     }
                 ],
             };
@@ -63,9 +63,8 @@ export default class UploadHeader extends Component{
 
         // 当上传完毕的时候
         if (file.status === "done") {
-            if (!file.response.status) {
-                let {name, url} = file.response.data
-                fileList[0].name = name
+            if (file.response.status===200) {
+                let {url} = file.response.data
                 fileList[0].url = url
                 message.success('上传成功')
             } else {
@@ -78,7 +77,7 @@ export default class UploadHeader extends Component{
     // 获取当前头像的名称
     _getHeaderImageName = () => {
         if (this.state.fileList.length) {
-            return this.state.fileList[0].name
+            return this.state.fileList[0].url
         }
         return ""
     }
