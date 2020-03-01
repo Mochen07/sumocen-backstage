@@ -1,8 +1,10 @@
 import axios from 'axios'
 import {message} from "antd"
 import {BaseUrl} from './../config/base-url'
+import {getObj} from "./../tools/cache-tool"
 
 const BASEURL = BaseUrl
+axios.defaults.headers.common['Authorization'] = getObj('USERKEY').token;
 
 /*
 * 功能：
