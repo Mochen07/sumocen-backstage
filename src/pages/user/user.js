@@ -39,12 +39,12 @@ class User extends Component{
         e.preventDefault()
         this.props.form.validateFields((error, values) => {
             if (!error) {
-                let headerImg = this.uploadImg.current._getHeaderImageName()
-                updateUser(Object.assign(values, {headerImg})).then(result => {
+                let avatar = this.uploadImg.current._getHeaderImageName()
+                updateUser(Object.assign(values, {avatar})).then(result => {
                     console.log(result, "更新信息返回结果")
-                    if (!result.status) {
-                        saveUser(result.data[0])
-                        message.success("更新信息成功")
+                    if (result.status === 200) {
+                        saveUser(result.data)
+                        message.success(result.message)
                     } else {
                         message.error('更新信息失败')
                     }
@@ -69,8 +69,8 @@ class User extends Component{
                         )}
                     </Form.Item>
                     <Form.Item label="账号">
-                        {getFieldDecorator('account', {
-                            initialValue: user.account
+                        {getFieldDecorator('username', {
+                            initialValue: user.username
                         })(
                             <Input type="text" disabled={true} />
                         )}
@@ -87,8 +87,8 @@ class User extends Component{
                         )}
                     </Form.Item>
                     <Form.Item label="用户名">
-                        {getFieldDecorator('userName', {
-                            initialValue: user.userName,
+                        {getFieldDecorator('nickname', {
+                            initialValue: user.nickname,
                             rules: [
                                 {required: true, message: '必须输入密码'},
                                 {min: 2, message: '密码必须大于2位'}
@@ -98,7 +98,7 @@ class User extends Component{
                         )}
                     </Form.Item>
                     <Form.Item label="头像">
-                        <UploadHeader ref={this.uploadImg} headerImg={user.headerImg} />
+                        <UploadHeader ref={this.uploadImg} headerImg={user.avatar} />
                     </Form.Item>
                     <Form.Item {...this.tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">
