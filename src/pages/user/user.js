@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Form, Input, Button, message} from 'antd'
-import {getUser, updateUser, saveUser} from '../../api/user-api'
-import UploadHeader from "./upload-header"
+import {getUser, updateUser, saveUser} from 'api/user-api'
+import UploadHeader from "pages/user/upload-header"
 
 class User extends Component{
 

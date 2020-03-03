@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
-import Login from './pages/login/login'
-import Admin from './pages/admin/admin'
+import Login from 'pages/login/login'
+import Admin from 'pages/admin/admin'
 
 // reduce
 

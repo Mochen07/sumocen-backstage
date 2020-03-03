@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Button} from 'antd'
-import './not-found.less'
+import 'pages/not-found/not-found.less'
 
 export default class NotFound extends Component {
   render() {

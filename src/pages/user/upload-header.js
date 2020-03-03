@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Upload, Icon, Modal, message } from 'antd';
-import {BaseUrlUpload} from './../../config/base-url'
-import {getUser} from './../../api/user-api'
+import {BaseUrlUpload} from 'config/base-url'
+import {getUser} from 'api/user-api'
 
 function getBase64(file) {
     return new Promise((resolve, reject) => {

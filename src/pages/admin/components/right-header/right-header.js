@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import { Layout, Icon, Button, Modal, Breadcrumb } from 'antd';
-import {getUser, removeUser} from '../../../../api/user-api'
-import {getWeatherInfo} from '../../../../api/weather-api'
-import {subscribeMenu} from '../../../../api/menu-api'
-import {timeFormat} from '../../../../tools/date-tool'
-import './right-header.less'
+import {getUser, removeUser} from 'api/user-api'
+import {getWeatherInfo} from 'api/weather-api'
+import {subscribeMenu} from 'api/menu-api'
+import {timeFormat} from 'tools/date-tool'
+import 'pages/admin/components/right-header/right-header.less'
 
 const { Header } = Layout;
 

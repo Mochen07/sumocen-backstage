@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
 import { Form, Icon, Input, Button, message } from 'antd';  // 用户登陆面板
-import {checkLogin, saveUser, isLogin} from './../../api/user-api'
-import './login.less'
+import {checkLogin, saveUser, isLogin} from 'api/user-api'
+import 'pages/login/login.less'
 
 class Login extends Component {
 
