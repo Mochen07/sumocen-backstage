@@ -1,17 +1,17 @@
 import React, {Component} from "react"
 import { Input, Button, Modal, Row, Col, Card } from 'antd';
+import {updateMenusData} from 'store/actionCreators'
+import {connect} from 'react-redux'
 
-import { getMenuListUpdate, getMenuList } from 'api/menu-api';
-import {getUser} from "api/user-api"
+import { getMenuListUpdate } from 'api/menu-api';
 
 const { TextArea } = Input;
 
-export default class Menus extends Component {
+class Menus extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            menusData: [],
-            backupData: [
+            backupData: [ // 默认菜单数据
                 {"id":1,"title":"首页","_key":"/home","icon":"home","parentID":0},
                 {"id":2,"title":"个人信息","_key":"/user","icon":"user","parentID":0},
                 {"id":3,"title":"菜单管理","_key":"/menus","icon":"appstore","parentID":0},
@@ -29,31 +29,20 @@ export default class Menus extends Component {
                         {"id":11,"title":"饼图","_key":"/charts/pie","icon":"pie-chart","parentID":8}
                     ]
                 }
-            ],
-            loading: false
+            ]
         }
 
         this.TextAreaDom = React.createRef()
     }
 
-    componentDidMount() {
-        // 获取菜单列表
-        getMenuList(getUser().id).then(result => {
-            console.log(result, "菜单数据")
-            if (result.status === 200) {
-                this.setState({
-                    menusData: result.data
-                })
-            }
-        })
-    }
-
+    // 正则格式化数据，以供编辑
     _DataFormat = (data) => {
         let formatString = JSON.stringify(data)
         formatString = formatString.replace(/(},)|(\[)|(\])/g, "$1$2$3\n")
         return formatString
     }
 
+    // 提交菜单修改
     _EditData = () => {
         Modal.confirm({
             title: '提示',
@@ -61,13 +50,12 @@ export default class Menus extends Component {
             maskClosable: true,
             onOk:() => {
                 const currentEdit = JSON.parse(this.TextAreaDom.current.state.value.replace(/\n/g, ""))
-                console.log(currentEdit)
                 const params = {
                     username: 'admin',
                     menus: currentEdit
                 }
                 getMenuListUpdate(params).then(result => {
-                    console.log(result)
+                    this.props.updateMenusData(result.data)
                 })
             },
             onCancel() {console.log('Cancel');},
@@ -75,26 +63,25 @@ export default class Menus extends Component {
     }
 
     render() {
-        const {menusData, loading, backupData} = this.state
+        const {backupData} = this.state
         return (
             <div>
                 <Row>
-                    <Col span={11} key={menusData.length}>
-                        <Card title="备份数据" hoverable>
+                    <Col span={10}>
+                        <Card title="修改菜单数据" hoverable key={this.props.menusData}>
                             <TextArea
                                 ref={this.TextAreaDom}
                                 rows={20}
-                                defaultValue={this._DataFormat(menusData)}
+                                defaultValue={this._DataFormat(this.props.menusData)}
                             />
                             <Button
                                 type="primary"
-                                loading={loading}
                                 onClick={this._EditData}
                                 style={{float:'right',marginTop: '20px'}}
                             >确认</Button>
                         </Card>
                     </Col>
-                    <Col span={10} offset={2}>
+                    <Col span={9} offset={5}>
                         <Card title="备份数据" hoverable>
                             <p style={{whiteSpace: "pre-line"}}>{this._DataFormat(backupData)}</p>
                         </Card>
@@ -104,3 +91,12 @@ export default class Menus extends Component {
         )
     }
 }
+
+let mapDispatchToProps = (dispatch) => {
+    // console.log("映射分发操作到组件属性上");
+    return {
+        updateMenusData: (menusData) => dispatch(updateMenusData(menusData))
+    }
+}
+
+export default connect(state=>({...state}), mapDispatchToProps)(Menus)

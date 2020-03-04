@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import {Link, withRouter} from 'react-router-dom'
 import {Menu, Icon, Layout} from 'antd';
-import {getMenuList, publishMenu} from "api/menu-api"
-import {getUser} from "api/user-api"
+import {publishMenu} from "api/menu-api"
 import 'pages/admin/components/left-nav/left-nav.less'
+// redux
+import {getMenusData} from 'store/actionCreators'
+import {connect} from "react-redux"
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
@@ -12,9 +14,7 @@ class LeftNav extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            menuList: []
-        }
+        this.state = {}
     }
 
     // 加载左侧菜单
@@ -63,7 +63,7 @@ class LeftNav extends Component {
 
     // 定义一个方法
     // 功能: 根据一个指定的key<获取到对应的icon, title
-    _getMenuItem = (key, menuList=this.state.menuList) => {
+    _getMenuItem = (key, menuList=this.props.menusData) => {
         for (let i = 0; i < menuList.length; i++) {
             let item = menuList[i]
             if (item._key === key) {
@@ -83,25 +83,17 @@ class LeftNav extends Component {
     }
 
     componentDidMount () {
-        // 获取菜单列表
-        getMenuList(getUser().id).then(result => {
-            console.log(result, "菜单数据")
-            if (result.status === 200) {
-                this.setState({
-                    menuList: result.data
-                })
-            }
-        })
+        // 派发异步任务
+        this.props.getMenusDataList()
     }
 
     render() {
 
-        const {collapsed, location} = this.props
-        const {menuList} = this.state
+        const {collapsed, location, menusData} = this.props
 
         // 1、获取当前的路由和路径
         let path = location.pathname
-        let openKeys = this._getOpenKeys(menuList, path)
+        let openKeys = this._getOpenKeys(menusData, path)
         // console.log(path, openKeys, '当前路由以及因该打开的菜单项')
 
         // 2、根据路径获取面包屑需要显示的信息
@@ -114,7 +106,7 @@ class LeftNav extends Component {
         if (openMenu) {
             pub_menus.unshift(openMenu)
         }
-        // console.log(pub_menus, "面包屑信息")
+        console.log(pub_menus, "面包屑信息")
         publishMenu(pub_menus)
 
         return (
@@ -129,9 +121,9 @@ class LeftNav extends Component {
                     bug: anth ui状态值默认只渲染一次，所以在menuList没有值的时候不渲染
                 */}
                 {
-                    menuList.length ? (
+                    this.props.menusData.length ? (
                         <Menu theme="dark" mode="inline" defaultSelectedKeys={[path]} defaultOpenKeys={[openKeys]}>
-                            {this._renderMenu(menuList)}
+                            {this._renderMenu(this.props.menusData)}
                         </Menu>
                     ) : ""
                 }
@@ -140,4 +132,19 @@ class LeftNav extends Component {
     }
 }
 
-export default withRouter(LeftNav)
+// 通过redux, 将参数映射到组件的props身上
+let  mapStateToProps = (state) => {
+    // console.log("映射状态到组件属性上");
+    return {
+        menusData: state.menusData
+    }
+}
+
+let mapDispatchToProps = (dispatch) => {
+    // console.log("映射分发操作到组件属性上");
+    return {
+        getMenusDataList: () => dispatch(getMenusData())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LeftNav))
