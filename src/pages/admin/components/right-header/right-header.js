@@ -88,7 +88,7 @@ class RightHeader extends Component {
                 />
                 {/*显示用户名和退出按钮*/}
                 <div className="admin-header-top">
-                    <span>欢迎您：{userInfo.nickname}</span>
+                    <span>欢迎您：<img src={userInfo.avatar} alt=""/>{userInfo.nickname}</span>
                     <Button type="danger" className="button" onClick={this._outLogin}>退出</Button>
                 </div>
                 {/*面包屑和天气*/}
