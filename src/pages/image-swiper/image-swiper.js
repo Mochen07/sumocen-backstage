@@ -82,6 +82,13 @@ export default class ImageSwiper extends Component {
                 age: 32,
                 address: 'Sidney No. 1 Lake Park',
             },
+            {
+                id: '4',
+                name: '春暖花开的季节',
+                url: 'http://localhost:7676/uploads/upload_071b28fec309fca516c4e0ee720c87f2.jpg',
+                link: '/user',
+                info: '为美丽生活写一首惬意的诗~'
+            }
         ],
     };
 
