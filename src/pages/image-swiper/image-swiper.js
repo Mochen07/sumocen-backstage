@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import {Card, Button, Table} from 'antd'
+import {Card, Button, Table, Divider, Popconfirm} from 'antd'
 
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
@@ -48,16 +48,67 @@ const columns = [
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
+        align: 'center',
     },
     {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
+        title: '预览',
+        dataIndex: 'url',
+        key: 'url',
+        align: 'center',
+        render: (url) => {
+            return (
+                <span>
+                    <img src={url} alt="" className="table-image"/>
+                </span>
+            )
+        }
     },
     {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
+        title: '介绍',
+        dataIndex: 'info',
+        key: 'info',
+        align: 'center',
+        ellipsis: true,
+    },
+    {
+        title: '链接',
+        dataIndex: 'link',
+        key: 'link',
+        align: 'center',
+    },
+    {
+        title: '操作',
+        key: 'action',
+        align: "center",
+        width: 500,
+        render: (text, record) => {
+            return (
+                <span>
+                        <Button onClick={() => {this._showAnswer(record)}}>查看图片</Button>
+                        <Divider type="vertical" />
+                        <Button onClick={() => this._addEditQuestion(record)}>编辑</Button>
+                        <Divider type="vertical" />
+                        <Popconfirm
+                            title="确定要删除吗?"
+                            onConfirm={() => {
+                                console.log('删除')
+                                // deleteQuestion(record.id).then(result => {
+                                //     if (!result.status) {
+                                //         message.success('删除成功')
+                                //         this._getQuestionList(this.state.currentCourse.id)
+                                //     } else {
+                                //         message.error('删除失败')
+                                //     }
+                                // })
+                            }}
+                            okText="是"
+                            cancelText="否"
+                        >
+                            <Button>删除</Button>
+                        </Popconfirm>
+                    </span>
+            )
+        }
     },
 ];
 
@@ -65,22 +116,25 @@ export default class ImageSwiper extends Component {
     state = {
         data: [
             {
-                key: '1',
-                name: 'John Brown',
-                age: 32,
-                address: 'New York No. 1 Lake Park',
+                id: '1',
+                name: '春暖花开的季节',
+                url: 'http://localhost:7676/uploads/upload_071b28fec309fca516c4e0ee720c87f2.jpg',
+                link: '/user',
+                info: '为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗为美丽生活写一首惬意的诗~'
             },
             {
-                key: '2',
-                name: 'Jim Green',
-                age: 42,
-                address: 'London No. 1 Lake Park',
+                id: '2',
+                name: '春暖花开的季节',
+                url: 'http://localhost:7676/uploads/upload_071b28fec309fca516c4e0ee720c87f2.jpg',
+                link: '/user',
+                info: '为美丽生活写一首惬意的诗~'
             },
             {
-                key: '3',
-                name: 'Joe Black',
-                age: 32,
-                address: 'Sidney No. 1 Lake Park',
+                id: '3',
+                name: '春暖花开的季节',
+                url: 'http://localhost:7676/uploads/upload_071b28fec309fca516c4e0ee720c87f2.jpg',
+                link: '/user',
+                info: '为美丽生活写一首惬意的诗~'
             },
             {
                 id: '4',
@@ -88,7 +142,7 @@ export default class ImageSwiper extends Component {
                 url: 'http://localhost:7676/uploads/upload_071b28fec309fca516c4e0ee720c87f2.jpg',
                 link: '/user',
                 info: '为美丽生活写一首惬意的诗~'
-            }
+            },
         ],
     };
 
@@ -131,6 +185,8 @@ export default class ImageSwiper extends Component {
                         <Table
                             id="drag-table"
                             columns={columns}
+                            rowKey={'id'}
+                            bordered
                             dataSource={this.state.data}
                             components={this.components}
                             onRow={(record, index) => ({
