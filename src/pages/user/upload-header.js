@@ -96,7 +96,7 @@ export default class UploadHeader extends Component{
                 <Upload
                     accept="image/*"
                     headers={{Authorization: getUser().token}}
-                    action={BaseUrlUpload + 'api/back/upload'}
+                    action={BaseUrlUpload + '/api/back/upload'}
                     listType="picture-card"
                     fileList={fileList}
                     onPreview={this.handlePreview}

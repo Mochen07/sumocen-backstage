@@ -3,7 +3,7 @@
 
 ## API
 
-> 登录 - api/back/user/login
+> 登录 - /api/back/user/login
 
 ## 插件
 
