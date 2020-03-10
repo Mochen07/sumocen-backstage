@@ -126,7 +126,9 @@ export default class ImageSwiper extends Component {
     };
 
     // 添加编辑swiper
-    _addEditSwiper = () => {}
+    _addEditSwiper = () => {
+        this.props.history.push('/image/add-edit')
+    }
 
     // 获取轮播图数据
     _getSwiperList = () => {

@@ -9,7 +9,7 @@ import RightHeader from 'pages/admin/components/right-header/right-header'
 import Home from 'pages/home/home'
 import User from 'pages/user/user'
 import Menus from 'pages/menus/menus'
-import ImageSwiper from 'pages/image-swiper/image-swiper'
+import Images from 'pages/image-swiper/images'
 import NotFound from 'pages/not-found/not-found'
 
 const { Content, Footer } = Layout;
@@ -51,7 +51,7 @@ export default class Admin extends Component {
                             <Route path="/home" component={Home} />
                             <Route path="/user" component={User} />
                             <Route path="/menus" component={Menus} />
-                            <Route path="/image" component={ImageSwiper} />
+                            <Route path="/image" component={Images} />
                             {/*<Route path="/charts" component={Charts} />*/}
                             <Route component={NotFound} />
                         </Switch>
