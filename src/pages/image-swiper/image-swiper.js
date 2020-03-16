@@ -95,7 +95,7 @@ export default class ImageSwiper extends Component {
                     <span>
                         <Button onClick={() => {this._showSwiperImage(record)}}>查看图片</Button>
                         <Divider type="vertical" />
-                        <Button onClick={() => this._addEditQuestion(record)}>编辑</Button>
+                        <Button onClick={() => this._addEditSwiper(record)}>编辑</Button>
                         <Divider type="vertical" />
                         <Popconfirm
                             title="确定要删除吗?"
@@ -126,8 +126,8 @@ export default class ImageSwiper extends Component {
     };
 
     // 添加编辑swiper
-    _addEditSwiper = () => {
-        this.props.history.push('/image/add-edit')
+    _addEditSwiper(data) {
+        this.props.history.push('/image/add-edit',  {swiperData: data})
     }
 
     // 获取轮播图数据

@@ -59,8 +59,8 @@ export default class UploadHeader extends Component{
 
     // 上传组件发生的事件
     handleChange = ({ file, fileList }) => {
-        console.log(file, '当前图片')
-        console.log(fileList, '当前图片列表')
+        // console.log(file, '当前图片')
+        // console.log(fileList, '当前图片列表')
 
         // 当上传完毕的时候
         if (file.status === "done") {
