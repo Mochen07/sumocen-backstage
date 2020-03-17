@@ -77,7 +77,7 @@ class AddEditSwiper extends Component {
         const {editSwiper} = this.state
 
         return (
-            <Card title={666666}>
+            <Card title={editSwiper._id ? '编辑' : '添加'}>
                 <Form {...this.formItemLayout} onSubmit={this._onSubmit}>
                     <Form.Item label={'名称'}>
                         {getFieldDecorator('name',{
