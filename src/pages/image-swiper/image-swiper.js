@@ -49,7 +49,11 @@ export default class ImageSwiper extends Component {
     state = {
         swiperList: [],
         showSwiper: {},
-        visible: false
+        visible: false,
+        pagination: {
+            totalSize: 0,
+            pageSize: 4
+        }
     };
 
     columns = [
@@ -171,7 +175,7 @@ export default class ImageSwiper extends Component {
     };
 
     render() {
-        const {swiperList, visible, showSwiper} = this.state
+        const {swiperList, visible, showSwiper, pagination} = this.state
 
         let addBtn = (
             <Button type='primary'
@@ -194,6 +198,11 @@ export default class ImageSwiper extends Component {
                                 index,
                                 moveRow: this.moveRow,
                             })}
+                            pagination={{
+                                total: pagination.totalSize,
+                                pageSize: pagination.pageSize,
+                                onChange: (pageNum, pageSize) => {}
+                            }}
                         />
                     </DndProvider>
                 </Card>
