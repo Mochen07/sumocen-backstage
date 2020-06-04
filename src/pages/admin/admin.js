@@ -6,11 +6,12 @@ import 'pages/admin/admin.less'
 
 import LeftNav from 'pages/admin/components/left-nav/left-nav'
 import RightHeader from 'pages/admin/components/right-header/right-header'
+import NotFound from 'pages/not-found/not-found'
 import Home from 'pages/home/home'
 import User from 'pages/user/user'
 import Menus from 'pages/menus/menus'
 import Images from 'pages/image-swiper/images'
-import NotFound from 'pages/not-found/not-found'
+import Document from 'pages/document/document'
 
 const { Content, Footer } = Layout;
 
@@ -52,6 +53,7 @@ export default class Admin extends Component {
                             <Route path="/user" component={User} />
                             <Route path="/menus" component={Menus} />
                             <Route path="/image" component={Images} />
+                            <Route path="/document" component={Document} />
                             {/*<Route path="/charts" component={Charts} />*/}
                             <Route component={NotFound} />
                         </Switch>
