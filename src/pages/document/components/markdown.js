@@ -10,7 +10,7 @@ export default class Markdown extends Component {
     TextAreaDom = React.createRef()
 
     state = {
-        document: '2222222222'
+        document: ''
     }
 
     onChange = (e) => {
@@ -35,6 +35,7 @@ export default class Markdown extends Component {
                     <ReactMarkdown
                         className="md-demo"
                         source={document}
+                        escapeHtml={false}
                     />
                 </div>
             </div>
