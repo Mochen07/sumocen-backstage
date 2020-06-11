@@ -1,11 +1,13 @@
-@import './markdownhere.css';
+@import 'markdownhere';
 
 .markdown{
+  height: 100%;
   display: flex;
 
   .md-left, .md-right{
     min-width: 50%;
-    height: 700px;
+    height: 100%;
+    overflow-x: hidden;
     .edit-input{
       height: 100%;
       border: none;
@@ -16,4 +18,6 @@
   .md-right{
     padding: 0 20px;
   }
+
+  .markdownCss()
 }

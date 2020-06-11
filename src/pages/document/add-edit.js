@@ -2,30 +2,28 @@ import React, {Component} from "react"
 import {Card, Button} from 'antd';
 import Markdown from "pages/document/components/markdown"
 
+import "./add-edit.less"
+
 export default class AddEdit extends Component {
     state = {
         input: '',
         isFullScreen: false
     }
 
-    componentDidMount = () => {
-        this.watchFullScreen()
-    }
-
     fullScreen = () => {
         console.log('fullscreen:', this.state.isFullScreen);
         if (!this.state.isFullScreen) {
             this.requestFullScreen();
-            this.state.isFullScreen = true;
         } else {
             this.exitFullscreen();
-            this.state.isFullScreen = false;
         }
+        this.setState({
+            isFullScreen: !this.state.isFullScreen
+        })
     };
 
     //进入全屏
     requestFullScreen = () => {
-        console.log('requestFullScreen')
         var de = document.documentElement;
         if (de.requestFullscreen) {
             de.requestFullscreen();
@@ -49,29 +47,46 @@ export default class AddEdit extends Component {
         }
     };
 
-    //监听fullscreenchange事件
+    // 监听fullscreenchange事件
     watchFullScreen = () => {
         const _self = this;
         document.addEventListener(
-            "webkitfullscreenchange",
+            "fullscreenchange",
             function () {
                 _self.setState({
                     isFullScreen: document.webkitIsFullScreen
-                });
-            },
-            false
-        );
+                })},
+            false)
     };
+
+    // 移除监听
+    removeFullScreen = () => {
+        document.removeEventListener(
+            "fullscreenchange",
+            function () {},
+            false
+        )
+    }
+
+    componentDidMount = () => {
+        this.watchFullScreen()
+    }
+
+    componentWillUnmount = () => {
+        this.removeFullScreen()
+    }
 
 
     render() {
+        const {isFullScreen} = this.state
+
         const leftBtn = (
             <Button type="dashed" onClick={this.fullScreen}>全屏</Button>
         )
 
         return (
-            <Card title="MarkDown编辑" extra={leftBtn}>
-                <Markdown/>
+            <Card className={(isFullScreen?'fullScreen':'') + ' cardContainer'} title="MarkDown编辑" extra={leftBtn}>
+                <Markdown />
             </Card>
         )
     }

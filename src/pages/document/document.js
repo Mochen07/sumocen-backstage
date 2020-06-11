@@ -7,7 +7,7 @@ export default class Document extends Component{
 
     render() {
         return (
-            <div>
+            <div style={{ height: '100%' }}>
                 <Switch>
                     <Route path={'/document/add-edit'} component={AddEdit} />
                     <Route path={'/document'} component={DocList} />
