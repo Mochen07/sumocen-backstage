@@ -16,14 +16,17 @@ class Login extends Component {
                 // 1、发送网络请求
                 checkLogin(username, password).then(result=>{
                     console.log('登陆返回的数据', result)
-                    if (result.status===200) {
+                    if (result.code===200) {
                         // 2、数据持久化
-                        saveUser(result.data)
+                        saveUser({
+                          nickname: username,
+                          token:result.data
+                        })
                         // 3、登陆成功要做的事情
                         message.success("登陆成功")
                         this.props.history.replace('/')
                     } else {
-                        message.error(result.message)
+                        message.error(result.msg)
                     }
                 })
             }

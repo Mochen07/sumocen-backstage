@@ -1,8 +1,9 @@
 import {MENUS_DATA} from './actionType'
+import defaultMenus from 'config/default-menus'
 
 // 默认的数据
 const defaultState = {
-    menusData: []
+    menusData: defaultMenus,
 }
 
 export default (state=defaultState, action) => {
@@ -10,7 +11,7 @@ export default (state=defaultState, action) => {
     switch (action.type) {
         // 更新菜单信息
         case MENUS_DATA:
-            return Object.assign({}, state, {menusData: action.menusData})
+            return Object.assign({}, state, {menusData: action.menusData.length ? action.menusData : state.menusData})
         // ...
         case 1:
             return Object.assign({}, state, {})
