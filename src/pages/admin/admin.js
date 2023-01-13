@@ -12,6 +12,7 @@ import User from 'pages/user/user'
 import Menus from 'pages/menus/menus'
 import Images from 'pages/image-swiper/images'
 import Document from 'pages/document/document'
+import Article from 'pages/article/article'
 
 const { Content, Footer } = Layout;
 
@@ -55,6 +56,7 @@ export default class Admin extends Component {
                             <Route path="/image" component={Images} />
                             <Route path="/document" component={Document} />
                             {/*<Route path="/charts" component={Charts} />*/}
+                            <Route path="/article" component={Article} />
                             <Route component={NotFound} />
                         </Switch>
                     </Content>
