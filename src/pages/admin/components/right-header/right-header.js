@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
-import { Layout, Icon, Button, Modal, Breadcrumb } from 'antd';
+import { Layout, Icon, Modal, Breadcrumb, Popconfirm } from 'antd';
 import {getUser, removeUser} from 'api/user-api'
 import {getWeatherInfo} from 'api/weather-api'
 import {subscribeMenu} from 'api/menu-api'
@@ -88,8 +88,15 @@ class RightHeader extends Component {
                 />
                 {/*显示用户名和退出按钮*/}
                 <div className="admin-header-top">
-                    <span>欢迎您：<img src={userInfo.avatar || require('../../../../assets/images/avatar.jpeg')} alt=""/>{userInfo.nickname}</span>
-                    <Button type="danger" className="button" onClick={this._outLogin}>退出</Button>
+                    <Popconfirm
+                      title="确认退出登录吗?"
+                      placement="bottom"
+                      onConfirm={this._outLogin}
+                      okText="是"
+                      cancelText="否"
+                    >
+                      <span>欢迎您：{userInfo.nickname}</span>
+                    </Popconfirm>
                 </div>
                 {/*面包屑和天气*/}
                 <div className="admin-header-bottom">
