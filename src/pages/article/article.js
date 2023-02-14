@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Table } from 'antd'
+import { Button, Table, Popconfirm } from 'antd'
 import { timeFormat } from 'tools/date-tool'
 import './article.less'
 
@@ -8,20 +8,6 @@ import { getArticleList } from 'api/article'
 export default class Document extends Component {
   state = {
     columns: [
-      {
-        title: '标题',
-        width: 230,
-        dataIndex: 'title',
-        key: 'title',
-        align: 'center',
-      },
-      {
-        title: '表述',
-        width: 230,
-        dataIndex: 'description',
-        key: 'description',
-        align: 'center',
-      },
       {
         title: '海报',
         width: 230,
@@ -42,6 +28,20 @@ export default class Document extends Component {
             </span>
           )
         },
+      },
+      {
+        title: '标题',
+        width: 230,
+        dataIndex: 'title',
+        key: 'title',
+        align: 'center',
+      },
+      {
+        title: '表述',
+        width: 230,
+        dataIndex: 'description',
+        key: 'description',
+        align: 'center',
       },
       {
         title: '浏览量',
@@ -72,6 +72,29 @@ export default class Document extends Component {
         align: 'center',
         render: (val) => {
           return <span>{timeFormat(val)}</span>
+        },
+      },
+      {
+        title: '操作',
+        width: 130,
+        dataIndex: 'comment',
+        key: 'comment',
+        align: 'center',
+        render: (val) => {
+          return (
+            <div>
+              <Button type="link">编辑</Button>
+              <Popconfirm
+                title="确认删除?"
+                placement="bottom"
+                onConfirm={this._outLogin}
+                okText="是"
+                cancelText="否"
+              >
+                <Button type="link">删除</Button>
+              </Popconfirm>
+            </div>
+          )
         },
       },
     ],

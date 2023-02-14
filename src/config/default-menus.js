@@ -10,7 +10,7 @@ export default [
   // {"id":1,"title":"首页","_key":"/home","icon":"home","parentID":0},
   // {"id":2,"title":"个人信息","_key":"/user","icon":"user","parentID":0},
   {"id":3,"title":"菜单管理","_key":"/menus","icon":"appstore","parentID":0},
-  {"id":8,"title":"文档管理","_key":"/document","icon":"appstore","parentID":0},
+  // {"id":8,"title":"文档管理","_key":"/document","icon":"appstore","parentID":0},
   // {"id":4,"title":"资源管理","_key":"/image","icon":"container","parentID":0,"children":[
   //     {"id":5,"title":"首页swiper","_key":"/image/swiper","icon":"android","parentID":4},
   //     {"id":6,"title":"Python","_key":"/question/python","icon":"bug","parentID":4},
