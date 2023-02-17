@@ -76,7 +76,14 @@ class RightHeader extends Component {
 
     // 订阅获取面包屑信息
     subscribeMenu((msg, data) => {
-      // console.log(msg, data, '接收到的面包屑信息')
+      console.log(msg, data, this.state.breadMenus, '接收到的面包屑信息')
+      // 初略解决面包屑新增编辑的时候异常问题
+      if ((!data || !data.length)) {
+        data = this.state.breadMenus
+        if (this.state.breadMenus.length===1) {
+          data.push({icon: 'radius-upright', title: '操作'})
+        }
+      }
       this.setState({
         breadMenus: data,
       })

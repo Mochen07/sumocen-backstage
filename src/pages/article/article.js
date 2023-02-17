@@ -77,8 +77,8 @@ export default class Document extends Component {
       {
         title: '操作',
         width: 130,
-        dataIndex: 'comment',
-        key: 'comment',
+        dataIndex: 'operate',
+        key: 'operate',
         align: 'center',
         render: (val) => {
           return (

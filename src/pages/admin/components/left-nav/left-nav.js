@@ -115,6 +115,7 @@ class LeftNav extends Component {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo">
           {/* <Icon type="thunderbolt" theme="twoTone" className="icon" /> */}
+          <span className={`icon ${collapsed ? '' : 'hide'}`}>S</span>
           <span className={`name ${collapsed ? 'close' : ''}`}>
             Sumocen
           </span>
