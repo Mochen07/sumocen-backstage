@@ -3,12 +3,11 @@ import { Card, Button, Modal, message, Drawer, Form, Input } from 'antd'
 import Markdown from 'pages/document/components/markdown'
 import UploadImg from 'pages/article/upload-img'
 
-import { reqArticleAddEdit } from 'api/article'
+import { reqArticleAddEdit, reqArticleDetail } from 'api/article'
 
 import './add-edit.less'
 
 class AddEdit extends Component {
-
   constructor() {
     super()
     this.uploadImg = React.createRef()
@@ -17,13 +16,13 @@ class AddEdit extends Component {
 
   state = {
     formData: {
-      title: '',        // 标题
-      description: '',  // 描述
-      content: '',      // 富文本内容
-      poster: '',       // 海报
-      tag: [],          // 标签
-      keywords: '',     // 关键词
-      _id: '',          // ID
+      title: '', // 标题
+      description: '', // 描述
+      content: '', // 富文本内容
+      poster: '', // 海报
+      tag: [], // 标签
+      keywords: '', // 关键词
+      _id: '', // ID
     },
     isFullScreen: false,
     visible: false,
@@ -58,8 +57,8 @@ class AddEdit extends Component {
     Modal.confirm({
       title: '确定返回吗？',
       content: '未保存的内容将会丢失',
-      okText: '好的',
-      cancelText: '取消',
+      okText: '好',
+      cancelText: '不了',
       onOk: () => {
         this.props.history.goBack()
       },
@@ -108,15 +107,22 @@ class AddEdit extends Component {
   confirmSave = () => {
     this.props.form.validateFields((error, values) => {
       if (!error) {
-        let poster = this.uploadImg.current._getHeaderImageName()
+        let poster = (this.uploadImg.current && this.uploadImg.current._getHeaderImageName()) || this.state.formData.poster
         let content = this.markdown.current.state.document
-        if (!poster) {return message.error('请上传文章海报')}
-        if (!content) {return message.error('请编辑文章内容')}
+        if (!poster) {
+          this.setState({ visible: true })
+          return message.error('请上传文章海报')
+        }
+        if (!content) {
+          return message.error('请编辑文章内容')
+        }
         values.poster = poster
         values.content = content
-        if (!values._id) {delete values._id}
+        if (!values._id) {
+          delete values._id
+        }
         reqArticleAddEdit(values).then((res) => {
-          if (res.code===200) {
+          if (res.code === 200) {
             message.success('保存成功')
             this.props.history.goBack()
           }
@@ -161,6 +167,24 @@ class AddEdit extends Component {
   }
 
   componentDidMount = () => {
+    const nowId = this.props.location.state && this.props.location.state._id
+    if (nowId) {
+      reqArticleDetail({
+        _id: nowId,
+        type: 'edit',
+      }).then((res) => {
+        const { title, description, content, poster, tag, keywords, _id, } = res.data
+        const nowDormData = { title, description, content, poster, tag, keywords, _id, }
+        this.setState({
+          formData: nowDormData
+        })
+        this.markdown.current.onChange({
+          target: {
+            value: content
+          }
+        })
+      })
+    }
     this.watchFullScreen()
   }
 
@@ -224,7 +248,13 @@ class AddEdit extends Component {
                   { required: true, message: '请输入文章标题' },
                   { min: 1, max: 60, message: '标题字数1~60之间' },
                 ],
-              })(<Input type="text" maxLength={60} placeholder="请输入文章标题" />)}
+              })(
+                <Input
+                  type="text"
+                  maxLength={60}
+                  placeholder="请输入文章标题"
+                />
+              )}
             </Form.Item>
             <Form.Item label="描述">
               {getFieldDecorator('description', {

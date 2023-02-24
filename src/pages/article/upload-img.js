@@ -68,7 +68,7 @@ export default class UploadHeader extends Component {
     this.setState({ fileList })
   }
 
-  // 获取当前头像的名称
+  // 获取图片的路径
   _getHeaderImageName = () => {
     if (this.state.fileList.length) {
       return this.state.fileList[0].url

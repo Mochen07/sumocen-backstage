@@ -29,6 +29,7 @@ export default class Markdown extends Component {
                         ref={this.TextAreaDom}
                         placeholder="markdown..."
                         onChange={this.onChange}
+                        value={document}
                     />
                 </div>
                 <div className="md-right">

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Button, Table, Popconfirm } from 'antd'
+import { Button, Table, Popconfirm, message } from 'antd'
 import { timeFormat } from 'tools/date-tool'
+import { emptyTextChange } from 'tools/utils'
 import './article.less'
 
-import { getArticleList } from 'api/article'
+import { reqArticleList, reqArticleDelete } from 'api/article'
 
 export default class Document extends Component {
   state = {
@@ -42,6 +43,11 @@ export default class Document extends Component {
         dataIndex: 'description',
         key: 'description',
         align: 'center',
+        render: (val) => {
+          return (
+            <span>{emptyTextChange(val)}</span>
+          )
+        }
       },
       {
         title: '浏览量',
@@ -80,14 +86,14 @@ export default class Document extends Component {
         dataIndex: 'operate',
         key: 'operate',
         align: 'center',
-        render: (val) => {
+        render: (val, row) => {
           return (
             <div>
-              <Button type="link">编辑</Button>
+              <Button type="link" onClick={() => this.handleTable(1, row)}>编辑</Button>
               <Popconfirm
                 title="确认删除?"
                 placement="bottom"
-                onConfirm={this._outLogin}
+                onConfirm={() => this.handleTable(2, row)}
                 okText="是"
                 cancelText="否"
               >
@@ -107,11 +113,11 @@ export default class Document extends Component {
   }
 
   componentDidMount() {
-    this._getArticleList()
+    this._reqArticleList()
   }
 
-  _getArticleList = (pageNum = 1) => {
-    getArticleList(pageNum).then((res) => {
+  _reqArticleList = (pageNum = 1) => {
+    reqArticleList(pageNum).then((res) => {
       this.setState({
         dataSource: res.data.list,
         pagination: Object.assign(this.state.pagination, {
@@ -124,7 +130,25 @@ export default class Document extends Component {
 
   // 添加编辑跳转
   _addEdit(data) {
-    this.props.history.push('/article/add-edit', { data: data })
+    this.props.history.push('/article/add-edit')
+  }
+
+  // 表格操作
+  handleTable(type, row) {
+    // type 1编辑 2删除
+    switch (type) {
+      case 1:
+        this.props.history.push('/article/add-edit', { _id: row._id })
+        break;
+      case 2:
+        reqArticleDelete({_id: row._id}).then(() => {
+          message.success('删除成功')
+          this._reqArticleList()
+        })
+        break;
+      default:
+        console.log('表格操作无响应')
+    }
   }
 
   render() {
@@ -149,8 +173,9 @@ export default class Document extends Component {
             pagination={{
               total: dataSource.total,
               pageSize: pagination.pageSize,
+              showTotal: (total => `共 ${total} 篇`),
               onChange: (pageNum, pageSize) => {
-                this._getArticleList(pageNum)
+                this._reqArticleList(pageNum)
               },
             }}
           />
