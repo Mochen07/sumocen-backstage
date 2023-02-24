@@ -13,6 +13,7 @@ import Menus from 'pages/menus/menus'
 import Images from 'pages/image-swiper/images'
 import Document from 'pages/document/document'
 import Article from 'pages/article/index'
+import Tag from 'pages/tag/index'
 
 const { Content, Footer } = Layout
 
@@ -49,6 +50,7 @@ export default class Admin extends Component {
             <Switch>
               <Redirect from="/" exact to="/article" />
               <Route path="/article" component={Article} />
+              <Route path="/tag" component={Tag} />
               <Route path="/home" component={Home} />
               <Route path="/user" component={User} />
               <Route path="/menus" component={Menus} />

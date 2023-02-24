@@ -6,6 +6,7 @@
 export default [
   // new page
   {"id":12,"title":"文章","_key":"/article","icon":"appstore","parentID":0},
+  {"id":13,"title":"标签","_key":"/tag","icon":"appstore","parentID":0},
   // lod page
   // {"id":1,"title":"首页","_key":"/home","icon":"home","parentID":0},
   // {"id":2,"title":"个人信息","_key":"/user","icon":"user","parentID":0},

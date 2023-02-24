@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Table, Popconfirm, message } from 'antd'
-import { timeFormat } from 'tools/date-tool'
+import { formatTime } from 'tools/date-tool'
 import { emptyTextChange } from 'tools/utils'
 import './article.less'
 
@@ -77,7 +77,7 @@ export default class Document extends Component {
         key: 'updatedTime',
         align: 'center',
         render: (val) => {
-          return <span>{timeFormat(val)}</span>
+          return <span>{formatTime(val, 'ago')}</span>
         },
       },
       {

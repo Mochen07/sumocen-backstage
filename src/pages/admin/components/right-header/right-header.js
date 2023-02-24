@@ -4,7 +4,7 @@ import { Layout, Icon, Modal, Breadcrumb, Popconfirm } from 'antd'
 import { getUser, removeUser } from 'api/user-api'
 import { getWeatherInfo } from 'api/weather-api'
 import { subscribeMenu } from 'api/menu-api'
-import { timeFormat } from 'tools/date-tool'
+import { formatTime } from 'tools/date-tool'
 import 'pages/admin/components/right-header/right-header.less'
 
 const { Header } = Layout
@@ -70,7 +70,7 @@ class RightHeader extends Component {
     // 获取当前时间
     this.timer = setInterval(() => {
       this.setState({
-        currentTime: timeFormat(Date.now()),
+        currentTime: formatTime(Date.now()),
       })
     }, 1000)
 
