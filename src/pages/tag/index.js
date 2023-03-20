@@ -1,19 +1,26 @@
 import React, { Component } from 'react'
-import { Tag, Input, Tooltip, Icon, Modal } from 'antd'
+import { Tag, Input, Tooltip, Icon, Modal, Form, Switch, message } from 'antd'
+import './index.less'
 
 import { reqTagList, reqTagAddEdit, reqTagDelete } from 'api/tag'
-
-export default class Document extends Component {
+export default class TagView extends Component {
   state = {
     tags: [],
     inputVisible: false,
     inputValue: '',
     visible: false,
-    nowTagInfo: {}
+    nowTagInfo: {},
   }
+
   handleClose = (nowTag) => {
     const tags = this.state.tags.filter((tag) => tag._id !== nowTag._id)
     this.setState({ tags })
+    const params = {_id: nowTag._id}
+    reqTagDelete(params).then(res => {
+      message.success(res.msg)
+    }).catch(err => {
+      reqTagList()
+    })
   }
 
   showInput = () => {
@@ -24,17 +31,43 @@ export default class Document extends Component {
     this.setState({ inputValue: e.target.value })
   }
 
+  handleTagName = (e) => {
+    const nowTagInfo = Object.assign(this.state.nowTagInfo, {name: e.target.value})
+    this.setState({ nowTagInfo: nowTagInfo })
+  }
+
+  handleTagIcon = (e) => {
+    const nowTagInfo = Object.assign(this.state.nowTagInfo, {icon: e.target.value})
+    this.setState({ nowTagInfo: nowTagInfo })
+  }
+
+  handleTagRecycle = (e) => {
+    const nowTagInfo = Object.assign(this.state.nowTagInfo, {recycle: e})
+    this.setState({ nowTagInfo: nowTagInfo })
+  }
+
   handleInputConfirm = () => {
     const { inputValue } = this.state
-    let { tags } = this.state
-    if (inputValue && tags.findIndex((tag) => tag.name === inputValue) === -1) {
-      tags = [...tags, inputValue]
+    if (!inputValue) {
+      this.setState({
+        inputVisible: false,
+      })
+      return
     }
-    console.log(tags)
-    this.setState({
-      tags,
-      inputVisible: false,
-      inputValue: '',
+    let { tags, nowTagInfo } = this.state
+    const params = {
+      ...nowTagInfo,
+      name: inputValue,
+    }
+    reqTagAddEdit(params).then(() => {
+      if (inputValue && tags.findIndex((tag) => tag.name === inputValue) === -1) {
+        tags = [...tags, {name: inputValue}]
+      }
+      this.setState({
+        tags,
+        inputVisible: false,
+        inputValue: '',
+      })
     })
   }
 
@@ -55,24 +88,30 @@ export default class Document extends Component {
     })
   }
 
-  handleOk = (e) => {
-    console.log(e)
-    this.setState({
-      visible: false,
+  handleOk = () => {
+    reqTagAddEdit({...this.state.nowTagInfo}).then(res => {
+      message.success(res.msg)
+      this.setState({
+        visible: false,
+        nowTagInfo: {},
+      })
+      if (this.state.nowTagInfo.recycle) {
+        this.reqTagList()
+      }
     })
   }
 
   handleCancel = (e) => {
-    console.log(e)
     this.setState({
       visible: false,
+      nowTagInfo: {recycle: false,},
     })
   }
 
   handleTagClick = (tag) => {
     this.setState({
       visible: true,
-      nowTagInfo: tag,
+      nowTagInfo: JSON.parse(JSON.stringify(tag)),
     })
   }
 
@@ -81,21 +120,35 @@ export default class Document extends Component {
   }
 
   render() {
-    const { tags, inputVisible, inputValue } = this.state
+    const { tags, inputVisible, inputValue, nowTagInfo } = this.state
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 3 },
+        sm: { span: 3 },
+      },
+      wrapperCol: {
+        xs: { span: 20 },
+        sm: { span: 20 },
+      },
+    }
     return (
       <div>
         {tags.map((tag, index) => {
           const isLongTag = tag.length > 20
           const tagElem = (
             <Tag
-              key={tag._id}
-              closable={tag.useNum === 0}
+              key={tag._id || new Date().getTime()}
+              closable={!tag.useNum}
               onClose={() => this.handleClose(tag)}
               onClick={() => this.handleTagClick(tag)}
             >
-              <Icon type={tag.icon} />
-              {isLongTag ? `${tag.name.slice(0, 20)}...` : tag.name}+
-              {tag.useNum}
+              {/* <Icon type={tag.icon} /> */}
+              {isLongTag ? `${tag.name.slice(0, 20)}...` : tag.name}
+              {!!tag.useNum ? (
+                <span className="useNum">{tag.useNum}</span>
+              ) : (
+                ''
+              )}
             </Tag>
           )
           return isLongTag ? (
@@ -127,13 +180,22 @@ export default class Document extends Component {
           </Tag>
         )}
         <Modal
-          title={this.state.nowTagInfo.name}
+          title={nowTagInfo.name}
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-          <Input value={this.state.nowTagInfo.name}/>
-          <Input value={this.state.nowTagInfo.icon}/>
+          <Form {...formItemLayout}>
+            <Form.Item label="名称">
+              <Input disabled={nowTagInfo.useNum>0} value={nowTagInfo.name} onChange={this.handleTagName}/>
+            </Form.Item>
+            <Form.Item label="图标">
+              <Input value={nowTagInfo.icon} onChange={this.handleTagIcon}/>
+            </Form.Item>
+            <Form.Item label="隐藏" valuepropname={nowTagInfo.recycle?1:0} key={nowTagInfo.recycle}>
+              <Switch defaultChecked={nowTagInfo.recycle} onChange={this.handleTagRecycle} />
+            </Form.Item>
+          </Form>
         </Modal>
       </div>
     )

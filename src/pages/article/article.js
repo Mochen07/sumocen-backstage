@@ -10,6 +10,13 @@ export default class Document extends Component {
   state = {
     columns: [
       {
+        title: '标题',
+        width: 230,
+        dataIndex: 'title',
+        key: 'title',
+        align: 'center',
+      },
+      {
         title: '海报',
         width: 230,
         dataIndex: 'poster',
@@ -29,13 +36,6 @@ export default class Document extends Component {
             </span>
           )
         },
-      },
-      {
-        title: '标题',
-        width: 230,
-        dataIndex: 'title',
-        key: 'title',
-        align: 'center',
       },
       {
         title: '表述',
