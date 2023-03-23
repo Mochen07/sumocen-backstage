@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import { Tag, Input, Tooltip, Icon, Modal, Form, Switch, message } from 'antd'
+import { Form, Icon as LegacyIcon } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { PlusOutlined } from '@ant-design/icons';
+import { Tag, Input, Tooltip, Modal, Switch, message } from 'antd';
 import './index.less'
 
 import { reqTagList, reqTagAddEdit, reqTagDelete } from 'api/tag'
@@ -142,7 +145,7 @@ export default class TagView extends Component {
               onClose={() => this.handleClose(tag)}
               onClick={() => this.handleTagClick(tag)}
             >
-              <Icon type={tag.icon} />
+              <LegacyIcon type={tag.icon} />
               {isLongTag ? `${tag.name.slice(0, 20)}...` : tag.name}
               {!!tag.useNum ? (
                 <span className="useNum">{tag.useNum}</span>
@@ -176,7 +179,7 @@ export default class TagView extends Component {
             onClick={this.showInput}
             style={{ background: '#fff', borderStyle: 'dashed' }}
           >
-            <Icon type="plus" /> New Tag
+            <PlusOutlined /> New Tag
           </Tag>
         )}
         <Modal
@@ -198,6 +201,6 @@ export default class TagView extends Component {
           </Form>
         </Modal>
       </div>
-    )
+    );
   }
 }

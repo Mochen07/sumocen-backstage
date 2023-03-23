@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import { Card, Button, Modal, message, Drawer, Form, Input } from 'antd'
+import { LeftOutlined, SaveOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Card, Button, Modal, message, Drawer, Input } from 'antd';
 import Markdown from 'pages/article/components/markdown'
 import UploadImg from 'pages/article/upload-img'
 
@@ -201,13 +204,13 @@ class AddEdit extends Component {
         <Button
           className="mr20"
           shape="circle"
-          icon="left"
+          icon={<LeftOutlined />}
           onClick={this._Back}
         />
         <Button
           className="mr20"
           shape="circle"
-          icon="save"
+          icon={<SaveOutlined />}
           onClick={this.confirmSave}
         />
         <Button className="mr20" type="primary" onClick={this.drawerSwitch}>

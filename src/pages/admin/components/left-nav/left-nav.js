@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { Menu, Icon, Layout } from 'antd'
+import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { Menu, Layout } from 'antd';
 import { publishMenu } from 'api/menu-api'
 import 'pages/admin/components/left-nav/left-nav.less'
 // redux
@@ -23,18 +24,18 @@ class LeftNav extends Component {
         return (
           <Menu.Item key={item._key}>
             <Link to={item._key}>
-              <Icon type={item.icon} />
+              <LegacyIcon type={item.icon} />
               <span>{item.title}</span>
             </Link>
           </Menu.Item>
-        )
+        );
       } else {
         return (
           <SubMenu
             key={item._key}
             title={
               <span>
-                <Icon type={item.icon} />
+                <LegacyIcon type={item.icon} />
                 <span>{item.title}</span>
               </span>
             }
@@ -42,9 +43,9 @@ class LeftNav extends Component {
             {/*如果有子菜单使用 ‘递归’ 层层渲染*/}
             {this._renderMenu(item.children)}
           </SubMenu>
-        )
+        );
       }
-    })
+    });
   }
 
   // 获取当前页面应该展开的菜单

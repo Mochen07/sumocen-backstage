@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Layout, Icon, Modal, Breadcrumb, Popconfirm } from 'antd'
+import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { Layout, Modal, Breadcrumb, Popconfirm } from 'antd';
 import { getUser, removeUser } from 'api/user-api'
 import { getWeatherInfo } from 'api/weather-api'
 import { subscribeMenu } from 'api/menu-api'
@@ -105,7 +106,7 @@ class RightHeader extends Component {
     return (
       <Header className="adminHeader">
         {/*展开按钮*/}
-        <Icon
+        <LegacyIcon
           className="trigger"
           type={collapsed ? 'menu-unfold' : 'menu-fold'}
           onClick={toggle}
@@ -129,10 +130,10 @@ class RightHeader extends Component {
               {breadMenus.map((item) => {
                 return (
                   <Breadcrumb.Item key={item.title}>
-                    <Icon type={item.icon} />
+                    <LegacyIcon type={item.icon} />
                     <span>{item.title}</span>
                   </Breadcrumb.Item>
-                )
+                );
               })}
             </Breadcrumb>
           </div>
@@ -143,7 +144,7 @@ class RightHeader extends Component {
           </div>
         </div>
       </Header>
-    )
+    );
   }
 }
 

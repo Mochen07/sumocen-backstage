@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Upload, Icon, Modal, message } from 'antd'
+import { PlusOutlined } from '@ant-design/icons';
+import { Upload, Modal, message } from 'antd';
 import { BaseUrlUpload } from 'config/base-url'
 import { getUser } from 'api/user-api'
 
@@ -80,7 +81,7 @@ export default class UploadHeader extends Component {
     const { previewVisible, previewImage, fileList } = this.state
     const uploadButton = (
       <div>
-        <Icon type="plus" />
+        <PlusOutlined />
         <div className="ant-upload-text">Upload</div>
       </div>
     )

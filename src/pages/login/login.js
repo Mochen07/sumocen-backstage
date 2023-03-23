@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
-import { Form, Icon, Input, Button, message } from 'antd';  // 用户登陆面板
+import { LockOutlined, ThunderboltTwoTone, UserOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Button, message } from 'antd';  // 用户登陆面板
 import {checkLogin, saveUser, isLogin} from 'api/user-api'
 import 'pages/login/login.less'
 
@@ -47,7 +50,7 @@ class Login extends Component {
                 {/*登陆面板*/}
                 <div className="loginPane">
                     <div className="paneHead">
-                        <Icon type="thunderbolt" theme="twoTone" className="icon" />
+                        <ThunderboltTwoTone className="icon" />
                         <span className="name">Sumocen后台管理系统</span>
                     </div>
 
@@ -61,7 +64,7 @@ class Login extends Component {
                                     rules: [{ required: true, message: '请输入用户名' }],
                                 })(
                                     <Input
-                                        prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                        prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
                                         placeholder="Username"
                                     />,
                                 )}
@@ -76,7 +79,7 @@ class Login extends Component {
                                     ],
                                 })(
                                     <Input
-                                        prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                        prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
                                         type="password"
                                         placeholder="Password"
                                     />,
@@ -91,7 +94,7 @@ class Login extends Component {
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }
 

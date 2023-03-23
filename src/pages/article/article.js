@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { PlusOutlined } from '@ant-design/icons';
 import { Button, Table, Popconfirm, message } from 'antd'
 import { formatTime } from 'tools/date-tool'
 import { emptyTextChange } from 'tools/utils'
@@ -159,7 +160,7 @@ export default class Article extends Component {
         <div className="page-header">
           <Button
             className="addArticle"
-            icon="plus"
+            icon={<PlusOutlined />}
             type="primary"
             onClick={() => this._addEdit()}
           >
@@ -181,6 +182,6 @@ export default class Article extends Component {
           />
         </div>
       </div>
-    )
+    );
   }
 }
