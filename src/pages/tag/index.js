@@ -88,7 +88,7 @@ export default class TagView extends Component {
     })
   }
 
-  handleOk = () => {
+  handleModalOk = () => {
     reqTagAddEdit({...this.state.nowTagInfo}).then(res => {
       message.success(res.msg)
       this.setState({
@@ -101,10 +101,10 @@ export default class TagView extends Component {
     })
   }
 
-  handleCancel = (e) => {
+  handleModalCancel = () => {
     this.setState({
       visible: false,
-      nowTagInfo: {recycle: false,},
+      nowTagInfo: {},
     })
   }
 
@@ -142,7 +142,7 @@ export default class TagView extends Component {
               onClose={() => this.handleClose(tag)}
               onClick={() => this.handleTagClick(tag)}
             >
-              {/* <Icon type={tag.icon} /> */}
+              <Icon type={tag.icon} />
               {isLongTag ? `${tag.name.slice(0, 20)}...` : tag.name}
               {!!tag.useNum ? (
                 <span className="useNum">{tag.useNum}</span>
@@ -182,8 +182,8 @@ export default class TagView extends Component {
         <Modal
           title={nowTagInfo.name}
           visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
+          onOk={this.handleModalOk}
+          onCancel={this.handleModalCancel}
         >
           <Form {...formItemLayout}>
             <Form.Item label="名称">
