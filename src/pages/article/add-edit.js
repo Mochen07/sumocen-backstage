@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Button, Modal, message, Drawer, Form, Input } from 'antd'
-import Markdown from 'pages/document/components/markdown'
+import Markdown from 'pages/article/components/markdown'
 import UploadImg from 'pages/article/upload-img'
 
 import { reqArticleAddEdit, reqArticleDetail } from 'api/article'
