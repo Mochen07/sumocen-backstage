@@ -6,7 +6,7 @@ import './article.less'
 
 import { reqArticleList, reqArticleDelete } from 'api/article'
 
-export default class Document extends Component {
+export default class Article extends Component {
   state = {
     columns: [
       {
