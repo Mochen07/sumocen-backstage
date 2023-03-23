@@ -2,7 +2,10 @@ import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
 import { LockOutlined, ThunderboltTwoTone, UserOutlined } from '@ant-design/icons';
 import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
+
+// import '@ant-design/compatible/assets/index.css';
+
+
 import { Input, Button, message } from 'antd';  // 用户登陆面板
 import {checkLogin, saveUser, isLogin} from 'api/user-api'
 import 'pages/login/login.less'

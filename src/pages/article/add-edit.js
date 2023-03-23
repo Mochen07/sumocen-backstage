@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { LeftOutlined, SaveOutlined } from '@ant-design/icons';
 import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
+
+// import '@ant-design/compatible/assets/index.css';
+
+
 import { Card, Button, Modal, message, Drawer, Input } from 'antd';
 import Markdown from 'pages/article/components/markdown'
 import UploadImg from 'pages/article/upload-img'
@@ -223,7 +226,7 @@ class AddEdit extends Component {
     )
 
     return (
-      <Card
+      (<Card
         className={(isFullScreen ? 'fullScreen' : '') + ' cardContainer'}
         title="MarkDown编辑"
         extra={leftBtn}
@@ -236,7 +239,7 @@ class AddEdit extends Component {
           closable={false}
           width="400"
           onClose={this.drawerSwitch}
-          visible={this.state.visible}
+          open={this.state.visible}
         >
           <Form {...this.formItemLayout}>
             <Form.Item>
@@ -269,8 +272,8 @@ class AddEdit extends Component {
             </Form.Item>
           </Form>
         </Drawer>
-      </Card>
-    )
+      </Card>)
+    );
   }
 }
 

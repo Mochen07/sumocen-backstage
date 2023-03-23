@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Form, Icon as LegacyIcon } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
+
+// import '@ant-design/compatible/assets/index.css';
+
+
 import { PlusOutlined } from '@ant-design/icons';
 import { Tag, Input, Tooltip, Modal, Switch, message } from 'antd';
 import './index.less'
@@ -135,7 +138,7 @@ export default class TagView extends Component {
       },
     }
     return (
-      <div>
+      (<div>
         {tags.map((tag, index) => {
           const isLongTag = tag.length > 20
           const tagElem = (
@@ -184,7 +187,7 @@ export default class TagView extends Component {
         )}
         <Modal
           title={nowTagInfo.name}
-          visible={this.state.visible}
+          open={this.state.visible}
           onOk={this.handleModalOk}
           onCancel={this.handleModalCancel}
         >
@@ -200,7 +203,7 @@ export default class TagView extends Component {
             </Form.Item>
           </Form>
         </Modal>
-      </div>
+      </div>)
     );
   }
 }

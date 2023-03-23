@@ -86,7 +86,7 @@ export default class UploadHeader extends Component {
       </div>
     )
     return (
-      <div className="clearfix">
+      (<div className="clearfix">
         <Upload
           accept="image/*"
           headers={{ Authorization: getUser().token }}
@@ -100,13 +100,13 @@ export default class UploadHeader extends Component {
           {fileList.length >= 1 ? null : uploadButton}
         </Upload>
         <Modal
-          visible={previewVisible}
+          open={previewVisible}
           footer={null}
           onCancel={this.handleCancel}
         >
           <img alt="example" style={{ width: '100%' }} src={previewImage} />
         </Modal>
-      </div>
-    )
+      </div>)
+    );
   }
 }
