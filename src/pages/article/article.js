@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, Table, Popconfirm, message } from 'antd'
+import { Button, Table, Popconfirm, message, Image } from 'antd'
 import { formatTime } from 'tools/date-tool'
 import { emptyTextChange } from 'tools/utils'
 import './article.less'
@@ -26,13 +26,10 @@ export default class Article extends Component {
         render: (url) => {
           return (
             <span>
-              <img
-                src={
-                  (url !== '海报' && url) ||
-                  require('../../assets/images/default.png')
-                }
-                alt=""
-                className="table-image"
+              <Image
+                width={75}
+                height={75}
+                src={(url !== '海报' && url)||require('../../assets/images/default.png')}
               />
             </span>
           )

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Form, Icon as LegacyIcon } from '@ant-design/compatible';
-
+import { Form } from '@ant-design/compatible';
+import IconFont from 'tools/icon-font'
 // import '@ant-design/compatible/assets/index.css';
 
 
@@ -148,7 +148,7 @@ export default class TagView extends Component {
               onClose={() => this.handleClose(tag)}
               onClick={() => this.handleTagClick(tag)}
             >
-              <LegacyIcon type={tag.icon} />
+              <IconFont type={tag.icon || 'slack-square-fill'} className="icon-font" />
               {isLongTag ? `${tag.name.slice(0, 20)}...` : tag.name}
               {!!tag.useNum ? (
                 <span className="useNum">{tag.useNum}</span>
