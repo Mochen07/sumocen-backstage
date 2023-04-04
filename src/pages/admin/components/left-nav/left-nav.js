@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { Icon as LegacyIcon } from '@ant-design/compatible';
+import IconFont from 'tools/icon-font'
 import { Menu, Layout } from 'antd';
 import { publishMenu } from 'api/menu-api'
 import 'pages/admin/components/left-nav/left-nav.less'
@@ -24,7 +24,7 @@ class LeftNav extends Component {
         return (
           <Menu.Item key={item._key}>
             <Link to={item._key}>
-              <LegacyIcon type={item.icon} />
+              <IconFont type={item.icon} />
               <span>{item.title}</span>
             </Link>
           </Menu.Item>
@@ -35,7 +35,7 @@ class LeftNav extends Component {
             key={item._key}
             title={
               <span>
-                <LegacyIcon type={item.icon} />
+                <IconFont type={item.icon} />
                 <span>{item.title}</span>
               </span>
             }

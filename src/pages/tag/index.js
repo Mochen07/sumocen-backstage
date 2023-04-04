@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Form } from '@ant-design/compatible';
-import IconFont from 'tools/icon-font'
-// import '@ant-design/compatible/assets/index.css';
 
+import STag from 'components/STag.jsx'
 
 import { PlusOutlined } from '@ant-design/icons';
 import { Tag, Input, Tooltip, Modal, Switch, message } from 'antd';
@@ -140,29 +139,13 @@ export default class TagView extends Component {
     return (
       (<div>
         {tags.map((tag, index) => {
-          const isLongTag = tag.length > 20
-          const tagElem = (
-            <Tag
-              key={tag._id || new Date().getTime()}
-              closable={!tag.useNum}
-              onClose={() => this.handleClose(tag)}
-              onClick={() => this.handleTagClick(tag)}
-            >
-              <IconFont type={tag.icon || 'slack-square-fill'} className="icon-font" />
-              {isLongTag ? `${tag.name.slice(0, 20)}...` : tag.name}
-              {!!tag.useNum ? (
-                <span className="useNum">{tag.useNum}</span>
-              ) : (
-                ''
-              )}
-            </Tag>
-          )
-          return isLongTag ? (
-            <Tooltip title={tag.name} key={tag._id}>
-              {tagElem}
-            </Tooltip>
-          ) : (
-            tagElem
+          return (
+            <STag
+              key={tag._id}
+              tag={tag}
+              handleClose={this.handleClose}
+              handleTagClick={this.handleTagClick}
+            />
           )
         })}
         {inputVisible && (
@@ -187,6 +170,7 @@ export default class TagView extends Component {
         )}
         <Modal
           title={nowTagInfo.name}
+          forceRender
           open={this.state.visible}
           onOk={this.handleModalOk}
           onCancel={this.handleModalCancel}
